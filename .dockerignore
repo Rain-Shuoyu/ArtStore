@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+!.env.production.example
+.git
+.github
+.claude
+node_modules
+dist
+figures
+*.mhtml
+.DS_Store
+npm-debug.log*

@@ -1,3 +1,7 @@
+-- Run this file once for a brand-new, empty Supabase project.
+-- Do not rerun it against a project that already contains the artwork schema or data.
+-- For an intentional data wipe and rebuild, see 000_reset_gallery_inventory.sql.
+
 create type public.inventory_status as enum ('available', 'reserved', 'sold');
 
 create table public.artworks (
@@ -56,4 +60,5 @@ to anon, authenticated
 using (bucket_id = 'artwork-images');
 
 -- Manage table rows and image uploads in the Supabase Dashboard as a project owner.
--- Do not create browser write policies or expose a service_role key in this application.
+-- This website has no Supabase Auth login or browser write path.
+-- Do not add authenticated/anonymous browser write policies or expose a service_role key.

@@ -1,0 +1,29 @@
+{
+	log {
+		output stdout
+		format console
+	}
+}
+
+{$SITE_DOMAIN} {
+	root * /srv
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), geolocation=(), microphone=()"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	}
+
+	header Cache-Control "no-cache"
+
+	@static {
+		path /assets/*
+	}
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	try_files {path} /index.html
+	file_server
+}
