@@ -1,14 +1,54 @@
+export type InventoryStatus = 'available' | 'reserved' | 'sold'
+
 export type Artwork = {
   id: string
   sequence: string
   title: string
+  titleZh?: string
   artist: string
   year: string
+  origin?: string
   medium: string
+  technique?: string
   dimensions: string
   price: string
-  availability: 'available' | 'reserved'
+  availability: InventoryStatus
   ratio: string
+  image?: string
+}
+
+export type ArtworkRecord = {
+  id: string
+  inventory_number: string
+  title: string
+  title_zh: string | null
+  origin: string | null
+  material: string
+  technique: string | null
+  dimensions: string
+  price: string
+  inventory_status: InventoryStatus
+  image_url: string | null
+  sort_order: number
+}
+
+export function mapArtworkRecord(record: ArtworkRecord): Artwork {
+  return {
+    id: record.id,
+    sequence: String(record.sort_order).padStart(2, '0'),
+    title: record.title,
+    titleZh: record.title_zh ?? undefined,
+    artist: record.origin ?? '',
+    year: '—',
+    origin: record.origin ?? undefined,
+    medium: record.material,
+    technique: record.technique ?? undefined,
+    dimensions: record.dimensions,
+    price: record.price,
+    availability: record.inventory_status,
+    ratio: '3 / 4',
+    image: record.image_url ?? undefined,
+  }
 }
 
 export const gallery = {
@@ -19,13 +59,36 @@ export const gallery = {
   address: ['Your venue address', 'City, Country'],
 }
 
-export const artworks: Artwork[] = [
-  { id: 'work-01', sequence: '01', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'available', ratio: '3 / 4' },
-  { id: 'work-02', sequence: '02', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'available', ratio: '4 / 3' },
-  { id: 'work-03', sequence: '03', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'reserved', ratio: '1 / 1' },
-  { id: 'work-04', sequence: '04', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'available', ratio: '3 / 5' },
-  { id: 'work-05', sequence: '05', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'available', ratio: '5 / 4' },
-  { id: 'work-06', sequence: '06', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'available', ratio: '4 / 5' },
-  { id: 'work-07', sequence: '07', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'reserved', ratio: '16 / 10' },
-  { id: 'work-08', sequence: '08', title: 'Untitled', artist: 'Artist name', year: '—', medium: 'Medium to be confirmed', dimensions: 'Dimensions to be confirmed', price: 'Price upon request', availability: 'available', ratio: '2 / 3' },
+export const seedArtworks: Artwork[] = [
+  {
+    id: '2026050301',
+    sequence: '01',
+    title: 'Puppet (Yoke Thay)',
+    titleZh: '提线木偶',
+    artist: 'Myanmar (Burma) · 缅甸',
+    year: '—',
+    origin: 'Myanmar (Burma) · 缅甸',
+    medium: 'Wood, gold thread, fabric, embroidery · 木，金丝，布料，刺绣',
+    dimensions: '72 × 46 × 19 cm',
+    price: '￥15,000',
+    availability: 'available',
+    ratio: '4 / 3',
+    image: new URL('./assets/puppet-yoke-thay.jpg', import.meta.url).href,
+  },
+  {
+    id: '2026050302',
+    sequence: '02',
+    title: 'Perahera Bronze Elephant',
+    titleZh: '骑象巡游摆件',
+    artist: 'Sri Lanka · 斯里兰卡',
+    year: '—',
+    origin: 'Sri Lanka · 斯里兰卡',
+    medium: 'Copper Alloy · 铜合金',
+    technique: 'Handcrafted using multi-technique · 手工使用多种工艺制作',
+    dimensions: '45 × 45 × 20.5 cm',
+    price: '￥45,000',
+    availability: 'available',
+    ratio: '4 / 3',
+    image: new URL('./assets/perahera-bronze-elephant.jpg', import.meta.url).href,
+  },
 ]
