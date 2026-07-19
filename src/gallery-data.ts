@@ -52,11 +52,11 @@ export function mapArtworkRecord(record: ArtworkRecord): Artwork {
 }
 
 export const gallery = {
-  name: 'YOUR GALLERY',
+  name: 'OPENLAND',
   email: 'hello@yourgallery.com',
   wechat: 'your_wechat_id',
-  xiaohongshu: '@yourgallery',
-  address: ['Your venue address', 'City, Country'],
+  xiaohongshu: 'OPENLAND 博物馆',
+  address: ['华侨城创意文化园南区 OCAT A馆', '人类学博物馆'],
 }
 
 export const seedArtworks: Artwork[] = [
